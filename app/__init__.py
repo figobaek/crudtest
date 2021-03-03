@@ -19,6 +19,7 @@ import pymysql
 # local imports
 from config import app_config
 
+
 db = SQLAlchemy()
 login_manager = LoginManager()
 
@@ -27,6 +28,7 @@ def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(Config)
     app.config.from_pyfile('config.py')
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     Bootstrap(app)
     db.init_app(app)
