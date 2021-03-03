@@ -9,6 +9,7 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
+from sqlalchemy import create_engine
 
 # local imports
 from config import app_config
@@ -17,11 +18,17 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 
+
 def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_object(app_config[config_name])
+    app.config.from_object(Config)
     app.config.from_pyfile('config.py')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+    
+    DB_URI = app.config['SQLALCHEMY_DATABASE_URI']
+    engine = create_engine(DB_URI)
+    
+   
 
 
     Bootstrap(app)
