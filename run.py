@@ -8,9 +8,9 @@ config_name = os.getenv('FLASK_CONFIG')
 
 app = create_app(config_name)
 app.config['SECRET_KEY'] = 'p9Bv<3Eid9%$i01'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://figobaek:dt2021@localhost:3306/dreamteam_db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://figobaek:dt2021@localhost:3306/dreamteam_db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 
 
 if __name__ == "__main__":
-     app.run(debug = True, host='0.0.0.0' , port=5000)
+     app.run(debug = True, host='0.0.0.0' , port=3306)
