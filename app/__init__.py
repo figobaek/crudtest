@@ -19,7 +19,7 @@ import pandas as pd
 # local imports
 from config import app_config
 
-db = SQLAlchemy()
+db = SQLAlchemy(app)
 login_manager = LoginManager()
 
 
@@ -29,11 +29,11 @@ def create_app(config_name):
     app.config.from_pyfile('config.py')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     
-    # DB_URI = app.config['SQLALCHEMY_DATABASE_URI']
-    # engine = create_engine(DB_URI)
+    app.config['SQLALCHEMY_DATABASE_URI'] =  'mysql+pymysql://root:1234@127.0.0.1/dreamteam_db'
+   
     
-    SECRET_KEY = 'p9Bv<3Eid9%$i01'
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://:dt2021@127.0.0.1:3306/dreamteam_db'
+    # SECRET_KEY = 'p9Bv<3Eid9%$i01'
+    
     
     Bootstrap(app)
     db.init_app(app)
