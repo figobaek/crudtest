@@ -11,6 +11,11 @@ from flask_sqlalchemy import SQLAlchemy
 from config import Config
 from sqlalchemy import create_engine
 
+#pymysql
+import pymysql
+import pandas as pd
+
+
 # local imports
 from config import app_config
 
@@ -24,8 +29,9 @@ def create_app(config_name):
     app.config.from_pyfile('config.py')
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
     
-    DB_URI = app.config['SQLALCHEMY_DATABASE_URI']
-    engine = create_engine(DB_URI)
+    # DB_URI = app.config['SQLALCHEMY_DATABASE_URI']
+    # engine = create_engine(DB_URI)
+    
     SECRET_KEY = 'p9Bv<3Eid9%$i01'
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://:dt2021@127.0.0.1:3306/dreamteam_db'
     
@@ -65,5 +71,20 @@ def create_app(config_name):
     @app.route('/500')
     def error():
         abort(500)
+
+    # To deploy on heroku connection between pymysql and localhost
+    def db_connector():
+        db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='1234', db='dreamteam_db', charset='utf8')
+        cursor = db.cursor()
+        sql = '''SELECT * FROM dreamteam_db.employees;'''
+        cursor.execute(sql)
+        result = cursor.fetchall()
+        db.close()
+        return str(result)
+    
+    @app.route('/')
+    def index():
+        a = db_connector()
+        return a
 
     return app
