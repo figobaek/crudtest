@@ -18,8 +18,6 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 
 
-
-
 def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(Config)
@@ -28,6 +26,8 @@ def create_app(config_name):
     
     DB_URI = app.config['SQLALCHEMY_DATABASE_URI']
     engine = create_engine(DB_URI)
+    SECRET_KEY = 'p9Bv<3Eid9%$i01'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://:dt2021@127.0.0.1:3306/dreamteam_db'
     
     Bootstrap(app)
     db.init_app(app)
