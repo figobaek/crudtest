@@ -1,1 +1,1 @@
-web: gunicorn --workers=2 run:app 
+web: gunicorn --workers=2 run:app --preload -b 0.0.0.0:5000
