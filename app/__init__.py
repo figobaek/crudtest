@@ -19,7 +19,7 @@ import pandas as pd
 # local imports
 from config import app_config
 
-db = SQLAlchemy(app)
+db = SQLAlchemy()
 login_manager = LoginManager()
 
 
