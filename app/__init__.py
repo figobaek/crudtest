@@ -19,6 +19,7 @@ login_manager = LoginManager()
 
 
 
+
 def create_app(config_name):
     app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(Config)
@@ -28,9 +29,6 @@ def create_app(config_name):
     DB_URI = app.config['SQLALCHEMY_DATABASE_URI']
     engine = create_engine(DB_URI)
     
-   
-
-
     Bootstrap(app)
     db.init_app(app)
     login_manager.init_app(app)
