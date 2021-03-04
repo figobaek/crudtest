@@ -9,11 +9,9 @@ from flask_login import LoginManager
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from config import Config
-from sqlalchemy import create_engine
 
 #pymysql
 import pymysql
-
 
 
 # local imports
@@ -66,20 +64,5 @@ def create_app(config_name):
     @app.route('/500')
     def error():
         abort(500)
-
-    # To deploy on heroku connection between pymysql and localhost
-    def db_connector():
-        db = pymysql.connect(host='127.0.0.1', port=3306, user='root', passwd='1234', db='dreamteam_db', charset='utf8')
-        cursor = db.cursor()
-        sql = '''SELECT * FROM dreamteam_db.employees;'''
-        cursor.execute(sql)
-        result = cursor.fetchall()
-        db.close()
-        return str(result)
-    
-    @app.route('/')
-    def index():
-        a = db_connector()
-        return a
 
     return app
